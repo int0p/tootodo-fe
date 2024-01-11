@@ -34,13 +34,19 @@
 	src: url('/fonts/Concord-ExtraLight.ttf'),url('/fonts/Concord-ExtraBold.ttf'),url('/fonts/Concord-Light.ttf'),url('/fonts/Concord-Medium.ttf'),url('/fonts/Concord-Regular.ttf'),url('/fonts/Concord-Thin.ttf');
 	font-display: swap;
   }
+
+  @font-face{
+	font-family:"BaGlasses";
+	src:url("/fonts/BaGlasses.ttf");
+	font-display: swap;
+  }
   
   .font-digital{
 	font-family: 'Quantico';
   }
 
   .font-text{
-	font-family: 'Quicksand';  
+	font-family: 'BaGlasses';  
   }
 
   .font-code{
