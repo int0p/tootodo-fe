@@ -80,8 +80,6 @@
 	}
 
 	let openSide = false;
-
-	
 </script>
 
 <PageTemplete {openSide}>

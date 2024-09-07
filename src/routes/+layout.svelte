@@ -3,27 +3,21 @@
 	import { Button, Breadcrumb, Avatar, DropdownMenu } from "$ui";
 	import HeaderNav from "$components/HeaderNav.svelte";
 	import TWindicator from "$components/TWindicator.svelte";
-	import { auth, isAuthed, timerOpen, } from "$store";
+	import { auth, isAuthed, timerOpen, isRefresh } from "$store";
 	import { goto } from "$app/navigation";
 	import { onDestroy, onMount } from "svelte";
 	import { LogOut, Clock, Bell } from "lucide-svelte";
 	import { page } from "$app/stores";
 	import ShowRecord from "$components/tenMTable/showRecord.svelte";
 	import PlanRecord from "$components/tenMTable/planRecord.svelte";
-	import { getCookie } from "$lib/utils";
 
 	let showAlarm = false;
 	let openTenM = false;
 
-	$:{
-		if(!$isAuthed){
-			goto("/login", { replaceState: true });
-		}
-	}
 	onMount(async () => {
 		const loggedIn = getCookie("logged_in");
 
-		await auth.getUserInfo();		
+		await auth.getUserInfo();
 
 		const interval = setInterval(
 			async () => {
@@ -47,6 +41,11 @@
 			document.removeEventListener("keydown", handleKeyDown); // keydown 이벤트 리스너 제거
 	});
 
+	function getCookie(name) {
+		const value = `; ${document.cookie}`;
+		const parts = value.split(`; ${name}=`);
+		if (parts.length === 2) return parts.pop().split(";").shift();
+	}
 
 	async function handleLogout(e) {
 		e.preventDefault();
@@ -63,7 +62,6 @@
 			openTenM = false;
 		}
 	}
-
 </script>
 
 {#await auth.refresh() then}

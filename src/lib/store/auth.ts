@@ -32,7 +32,7 @@ const setAuth = () => {
 			};
 			await postApi(options);
 			alert('가입이 완료되었습니다. ');
-			goto('/login', { replaceState: true });
+			goto('/login');
 		} catch (e) {
 			alert(e.message);
 		}
@@ -59,7 +59,7 @@ const setAuth = () => {
 			goto('/do');
 		} catch (e) {
 			alert(e.message);
-			goto('/login', { replaceState: true });
+			goto('/login');
 		}
 	};
 
@@ -115,7 +115,7 @@ const setAuth = () => {
 			set({ ...initValues });
 			isRefresh.set(false); 
 			alert('로그아웃이 완료되었습니다.');
-			goto('/login', { replaceState: true });
+			goto('/login');
 		} catch (e) {
 			alert(e.message);
 			await refreshWithFn(logout);
@@ -140,7 +140,7 @@ const setAuth = () => {
 			getUserInfo();			
 		} catch (e) {
 			alert('구글 로그인시 오류가 발생했습니다. ' + e);
-			goto('/login', { replaceState: true });
+			goto('/login');
 		}
 	};
 
@@ -154,7 +154,7 @@ const setAuth = () => {
 		} catch (e) {
 			isRefresh.set(false) 
 			alert('refresh token 역시 만료되었습니다. 다시 로그인하세요. ' + e);
-			goto('/login', { replaceState: true });
+			goto('/login');
 		}
 	};
 

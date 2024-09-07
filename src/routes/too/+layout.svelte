@@ -3,23 +3,11 @@
 	import { goto } from "$app/navigation";
 
 	import { page } from "$app/stores";
-	import { getThis3WeeksRange } from "$lib/utils";
-	import { onMount, tick } from "svelte";
+	import SelectCategory from "$components/SelectCategory.svelte";
+    import { getThis3WeeksRange } from "$lib/utils";
 	const date_range = getThis3WeeksRange();
 	const task_start_date = date_range.start;
 	const task_end_date = date_range.end;
-
-	onMount(async () => {
-		await setQuery(date_range);
-	});
-
-	async function setQuery(duration) {
-		const start_date = duration.start;
-		const end_date = duration.end;
-		const searchParams = new URLSearchParams({ start_date, end_date });
-		await goto(`/too/tasks?${searchParams.toString()}`);
-		await tick();
-	}
 	$: selectedPage = $page.url.pathname.split("/")[2];
 </script>
 
@@ -33,18 +21,13 @@
 			bind:value={selectedPage}
 			class="flex h-full w-[240px] items-center rounded-xl bg-white shadow-md "
 		>
-			<!-- select item -->
+			<!-- select item -->			
 			<ToggleGroup.Item
 				value="tasks"
 				aria-label="task"
 				class="w-1/3 p-1 ml-2 h-3/4"
 			>
-				<Button
-					on:click={() =>
-						goto(
-							`/too/tasks?start_date=${task_start_date}&end_date=${task_end_date}`,
-						)}>Task</Button
-				>
+				<Button on:click={() => goto(`/too/tasks?start_date=${task_start_date}&end_date=${task_end_date}`)}>Task</Button>
 			</ToggleGroup.Item>
 			<ToggleGroup.Item
 				value="notes"
@@ -60,6 +43,7 @@
 			>
 				<Button on:click={() => goto("/too/habits")}>Habit</Button>
 			</ToggleGroup.Item>
+			
 		</ToggleGroup.Root>
 	</div>
 
